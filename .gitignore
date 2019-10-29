@@ -1,2 +1,4 @@
 object_detection
 proto
+__pycache__
+conftest.py
