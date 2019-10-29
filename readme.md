@@ -17,4 +17,8 @@ It implements a service that consumes detection output from https://github.com/k
 ## Running
 - `python visualize_image.py object_detection/data/mscoco_complete_label_map.pbtxt 50001`
 
+## Tests
+`visualize_image_tests.py` uses a shared fixture defined in `[video object detection repo]/samples/conftest.py`.
+Create a symlink to that file to the root directory then run `pytest visualize_image_tests.py`
+
  Replace the label map path as appropriate
