@@ -71,7 +71,7 @@ if __name__ == "__main__":
     # create server
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # add implementing class to server
-    video_handler = VideoDetectionHandler(args)
+    video_handler = VideoDetectionHandler(args.path_to_label_map)
     detection_handler_pb2_grpc.add_DetectionHandlerServicer_to_server(video_handler, server);
     # listen
     port = args.handler_port
