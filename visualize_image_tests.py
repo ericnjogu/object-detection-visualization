@@ -23,5 +23,6 @@ def test_create_handle_detection_request(create_handle_detection_request):
     # assertions
     handler.video_writer.write.assert_called_once()
 
+# https://www.avivroth.com/2018/03/06/python-embedding-pytest-in-code/
 if __name__ == "__main__":
     pytest.main([__file__])
