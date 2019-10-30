@@ -56,7 +56,8 @@ class VideoDetectionHandler(detection_handler_pb2_grpc.DetectionHandlerServicer)
           self.get_category_index(),
           use_normalized_coordinates=True,
           line_thickness=10)
-        output_rgb = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        # https://github.com/albu/albumentations/issues/67#issuecomment-449625466
+        output_rgb = cv2.cvtColor(frame.astype(numpy.uint8), cv2.COLOR_RGB2BGR)
         self.video_writer.write(output_rgb)
 
         return detection_handler_pb2.handle_detection_response(status=True)
