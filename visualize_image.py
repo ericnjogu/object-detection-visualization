@@ -53,7 +53,7 @@ class VideoDetectionHandler(detection_handler_pb2_grpc.DetectionHandlerServicer)
           boxes,
           request.detection_classes,
           request.detection_scores,
-          self.category_index,
+          self.get_category_index(),
           use_normalized_coordinates=True,
           line_thickness=10)
         output_rgb = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
