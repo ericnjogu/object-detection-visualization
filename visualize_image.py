@@ -48,10 +48,11 @@ class VideoDetectionHandler(detection_handler_pb2_grpc.DetectionHandlerServicer)
 
         frame = numpy.array(request.frame.numbers).reshape(request.frame.shape)
         boxes = numpy.array(request.detection_boxes.numbers).reshape(request.detection_boxes.shape)
+        # TODO use category index from request, convert to format expected by utils
         vis_utils.visualize_boxes_and_labels_on_image_array(
           frame,
-          boxes,
-          request.detection_classes,
+          boxes[0],
+          numpy.array(request.detection_classes).astype(numpy.int32),
           request.detection_scores,
           self.get_category_index(),
           use_normalized_coordinates=True,
