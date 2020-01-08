@@ -1,15 +1,19 @@
 import imageio
 import asyncio
 import os
+import imageio_ffmpeg
 
 async def write_video_to_stream(path_to_video, path_to_socket):
     video_reader = imageio.get_reader(path_to_video)
     sock = await create_socket(path_to_socket)
     _, socket_writer = await asyncio.open_unix_connection(sock=sock)
-    img_writer = imageio.get_writer(socket_writer, format='FFMPEG', ffmpeg_log_level='debug')
+    img_writer = None
     for frame in video_reader:
-        img_writer.append_data(frame)
-        #await socket_writer.drain()
+        if img_writer is None:
+            img_writer = imageio_ffmpeg.write_frames(socket_writer, size=(frame.shape[1], frame.shape[0]))
+            img_writer.send(None)
+        img_writer.send(frame)
+        await socket_writer.drain()
     img_writer.close()
     socket_writer.close()
 
