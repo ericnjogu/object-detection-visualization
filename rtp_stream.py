@@ -15,9 +15,9 @@ def write_video_to_stream(path_to_video, rtp_port):
                     size=(frame.shape[1], frame.shape[0]),
                     output_params=output_params,
                     input_params=input_params,
-                    #fps=24,
+                    fps=24,
                     codec='mpeg4',
-                    #bitrate=512000
+                    bitrate='1024K'
                     )
             img_writer.send(None)
         try:
