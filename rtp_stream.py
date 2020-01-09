@@ -15,10 +15,16 @@ def write_video_to_stream(path_to_video, rtp_port):
                     size=(frame.shape[1], frame.shape[0]),
                     output_params=output_params,
                     input_params=input_params,
-                    fps=10,
+                    #fps=24,
+                    #codec='mpeg4',
+                    #bitrate=512000
                     )
             img_writer.send(None)
-        img_writer.send(frame)
+        try:
+            img_writer.send(frame)
+        except KeyboardInterrupt as e:
+            img_writer.close()
+            break
     img_writer.close()
 
 if __name__ == '__main__':
