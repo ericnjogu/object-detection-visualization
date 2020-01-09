@@ -4,22 +4,21 @@ import imageio_ffmpeg
 
 def write_video_to_stream(path_to_video, rtp_port):
     video_reader = imageio.get_reader(path_to_video)
-    img_writer = None
+    print(video_reader.get_meta_data())
     rtp_url = f"rtp://localhost:{rtp_port}"
     output_params = [ '-f', 'rtp_mpegts']
     input_params = ['-re']
+    img_writer = imageio_ffmpeg.write_frames(
+            rtp_url,
+            size=video_reader.get_meta_data()['size'],
+            output_params=output_params,
+            input_params=input_params,
+            fps=24,
+            codec='mpeg4',
+            bitrate='1024K'
+            )
+    img_writer.send(None)
     for frame in video_reader:
-        if img_writer is None:
-            img_writer = imageio_ffmpeg.write_frames(
-                    rtp_url,
-                    size=(frame.shape[1], frame.shape[0]),
-                    output_params=output_params,
-                    input_params=input_params,
-                    fps=24,
-                    codec='mpeg4',
-                    bitrate='1024K'
-                    )
-            img_writer.send(None)
         try:
             img_writer.send(frame)
         except KeyboardInterrupt as e:
