@@ -16,7 +16,7 @@ def write_video_to_stream(path_to_video, rtp_port):
                     output_params=output_params,
                     input_params=input_params,
                     #fps=24,
-                    #codec='mpeg4',
+                    codec='mpeg4',
                     #bitrate=512000
                     )
             img_writer.send(None)
