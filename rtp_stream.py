@@ -26,6 +26,7 @@ def write_video_to_stream(path_to_video, rtp_port):
             break
     img_writer.close()
 
+# python rtp_stream.py "<video0>" 50644
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
